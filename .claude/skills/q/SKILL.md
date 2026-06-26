@@ -9,10 +9,11 @@ Quick-load all core project context files at the start of a session or when cont
 - User joins a new session and needs full context
 
 ## What to Do
-Read and summarize all three foundational files:
-1. [CLAUDE.md](../../../CLAUDE.md) — Operating order, thinking principles, minimum viable change, output style
-2. [PROJECT.md](../../../PROJECT.md) — Project structure, MCP servers, n8n skills, workflow methodology
-3. [PERSONA.md](../../../PERSONA.md) — Identity (小喬), tone/language, relationship dynamics, technical behavior
+1. Run `/clear` to reset conversation context before loading any files.
+2. Read and summarize all three foundational files:
+   1. [CLAUDE.md](../../../CLAUDE.md) — Operating order, thinking principles, minimum viable change, output style
+   2. [PROJECT.md](../../../PROJECT.md) — Project structure, MCP servers, n8n skills, workflow methodology
+   3. [PERSONA.md](../../../PERSONA.md) — Identity (小喬), tone/language, relationship dynamics, technical behavior
 
 ## Output
 Brief summary of key sections from each file, focusing on:

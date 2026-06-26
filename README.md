@@ -1,78 +1,98 @@
-# repo-boilerplate
+# misc-skills
 
-A starter template with a curated set of Claude Code skills and plugins pre-installed. Copy this repo as the foundation for new projects so every session starts with the right tooling already in place.
-
----
-
-## Skills
-
-Skills live in `.claude/skills/` (Claude Code) and `.agents/skills/` (agent harness) and are invoked with `/skill-name`.
-
-### Planning & Discovery
-
-| Skill | Invoke | Description |
-|-------|--------|-------------|
-| **grill-me** | `/grill-me` | Stress-tests a plan by interviewing you relentlessly until every decision branch is resolved. Run before generating any doc. |
-| **prd** | `/prd` | Generates a detailed Product Requirements Document — clear, actionable, and ready for implementation. |
-| **plan** | `/plan` | Generates `docs/plan.md` — phase plan, locked decisions, KPI summary, risk register, and compliance notes. |
-| **architecture** | `/architecture` | Generates `docs/architecture.md` — service architecture, integration patterns, tech stack, and security model. |
-| **usecase** | `/usecase` | Generates `docs/use-cases.md` — end-to-end interaction flows with Mermaid sequence diagrams for every actor. |
-| **deliverables** | `/deliverables` | Generates `docs/deliverables.md` — phase-by-phase deliverables with step-by-step "how to try it" guides. |
-
-> Typical flow: `/grill-me` → `/prd` → `/plan` → `/architecture` → `/usecase` → `/deliverables`
-
-### UI & Frontend
-
-| Skill | Invoke | Description |
-|-------|--------|-------------|
-| **impeccable** | `/impeccable [command] [target]` | Full-spectrum frontend design skill (v3.5.0, Apache 2.0). Covers design, redesign, audit, polish, animate, colorize, harden, optimize, and live browser iteration. Commands: `craft`, `shape`, `audit`, `critique`, `animate`, `bolder`, `colorize`, `delight`, `layout`, `overdrive`, `quieter`, `typeset`, `adapt`, `clarify`, `distill`, `harden`, `onboard`, `optimize`, `polish`, `init`, `document`, `extract`, `live`. |
-| **ui-ux-pro-max** | `/ui-ux-pro-max` | UI/UX design intelligence database — 67 styles, 96 palettes, 57 font pairings, 25 chart types across 13 stacks (React, Next.js, Vue, Svelte, SwiftUI, React Native, Flutter, Tailwind, shadcn/ui, and more). |
-
-### Tooling & Meta
-
-| Skill | Invoke | Description |
-|-------|--------|-------------|
-| **q** | `/q` | Quick-loads all core project context files at the start of a session or when context needs refreshing. |
-| **skills-required** | `/skills-required` | Audits installed skills against the project tech stack and suggests what's missing. |
-| **skill-creator** | `/skill-creator` | Creates new skills from scratch, modifies existing ones, runs evals, benchmarks performance, and optimizes trigger descriptions. |
-| **claude-api** | `/claude-api` | Builds, debugs, and optimizes Claude API / Anthropic SDK apps. Handles prompt caching, tool use, streaming, batch, and model migration. |
-| **security-review** | `/security-review` | Runs a complete security review of pending changes on the current branch. |
+A Claude Code skill repo with two ready-to-use coaching pipelines: one for resume improvement and job prep, one for interior design and room makeovers.
 
 ---
 
-## Plugins
+## Pipelines
 
-Plugins are installed globally at user scope via `claude plugin install`. They extend Claude Code with additional slash commands and integrations.
+### Resume Coach
 
-| Plugin | Invoke | Description |
-|--------|--------|-------------|
-| **frontend-design** | `/frontend-design` | Generates distinctive, production-grade frontend interfaces — avoids generic AI aesthetics. For websites, landing pages, dashboards, and React/HTML components. |
-| **code-simplifier** | `/simplify` | Reviews changed code for reuse, simplification, efficiency, and altitude cleanups, then applies fixes. Quality-focused; use `/code-review` for bug hunting. |
-| **skill-creator** | `/skill-creator` | Plugin-level skill creation and optimization (complements the `.agents/skills/skill-creator` skill). |
-| **claude-md-management** | `/revise-claude-md` · `/claude-md-improver` | Updates `CLAUDE.md` with session learnings and improves CLAUDE.md quality across projects. |
-| **telegram** | — | Telegram bot integration for notifications and messaging within automation workflows. |
+End-to-end resume improvement — from raw paste to mock interview.
+
+| Skill | Invoke | Role |
+|-------|--------|------|
+| **resume-coach** | `/resume-coach` | Entry point. Collects inputs, routes to stages, orchestrates the full pipeline. |
+| **resume-parser** | `/resume-parser` | Cleans messy PDF/DOCX paste. Reconstructs broken lines, columns, bullets. Outputs structured sections. |
+| **resume-diagnoser** | `/resume-diagnoser` | ATS audit. Flags formatting killers, weak bullets, missing signals. Ranks top 5 fixes by impact. |
+| **resume-recruiter** | `/resume-recruiter` | Keyword intelligence. Top 15 market keywords, what's missing, 2026 trending skills, buzzwords to cut. |
+| **resume-rewriter** | `/resume-rewriter` | XYZ bullet rewrite. Applies Google's formula: Accomplished X, measured by Y, by doing Z. Layers in missing keywords. |
+| **resume-hiring-manager** | `/resume-hiring-manager` | Mock interview. 8 questions (5 technical + 3 behavioural), scores each answer, delivers hireability score and study plan. |
+
+**Typical flow:**
+```
+/resume-coach  →  /resume-parser  →  /resume-diagnoser  →  /resume-recruiter  →  /resume-rewriter  →  /resume-hiring-manager
+```
+
+Start with `/resume-coach` — it handles input collection and routing.
 
 ---
 
-## Installed via
+### Room Coach
+
+Room redesign and refresh across three approaches: full redesign, budget refresh, or renter-safe.
+
+| Skill | Invoke | Role |
+|-------|--------|------|
+| **room-coach** | `/room-coach` | Entry point. Asks renting/owning, scope, budget, style, then routes to the right skill. |
+| **interior-design** | `/interior-design` | Full room redesign in a named style. Generates a photo-realistic image via `/banana`. Preserves windows, doors, ceiling height. |
+| **room-refresh** | `/room-refresh` | Budget refresh. Furniture stays put. Returns 5 highest-impact changes with prices from IKEA/Kmart/Target/Amazon across $300 / $600 / $1500+ tiers. |
+| **rental-refresh** | `/rental-refresh` | Renter-safe redesign. No painting, no drilling, no permanent fixtures. Shopping list with bond-back removal method per item. |
+
+**Routing logic:**
+```
+/room-coach
+    ├── Renting?              → /rental-refresh
+    ├── Owning + keep furniture → /room-refresh
+    └── Owning + open to changes → /interior-design
+```
+
+Start with `/room-coach` — it asks the right questions and routes automatically.
+
+**Image generation:** Room skills use `/banana` (Gemini image generation) when available. Install and configure it separately — see below.
+
+---
+
+## Utility
+
+| Skill | Invoke | Description |
+|-------|--------|-------------|
+| **q** | `/q` | Quick-loads CLAUDE.md, PROJECT.md, and PERSONA.md at the start of a session. |
+
+---
+
+## Image Generation (Optional)
+
+Room pipeline skills generate visuals via the `/banana` skill (Gemini Nano image generation by [@AgriciDaniel](https://github.com/AgriciDaniel/banana-claude)).
 
 ```bash
-# Skills (project-local, via impeccable)
-npx impeccable skills install
+# Install
+git clone https://github.com/AgriciDaniel/banana-claude.git
+cd banana-claude && bash install.sh
 
-# Plugins (user-global)
-claude plugin install frontend-design@claude-plugins-official
-claude plugin install code-simplifier@claude-plugins-official
-claude plugin install skill-creator@claude-plugins-official
-claude plugin install claude-md-management@claude-plugins-official
-claude plugin install telegram@claude-plugins-official
+# Configure (get a free key at https://aistudio.google.com/apikey)
+/banana setup
 ```
+
+If `/banana` is not configured, room skills output a copyable prompt instead.
+
+---
+
+## Style Library (Room Pipeline)
+
+12 interior styles across three moods:
+
+| Mood | Styles |
+|------|--------|
+| Cosy & Warm | Modern Japandi · Cosy Farmhouse · Warm Minimalism · Coastal Grandmother |
+| Bold & Editorial | Dark Academia · Modern Industrial · Maximalist Eclectic · Mid-Century Modern |
+| Calm & Feminine | Soft French Apartment · Quiet Luxury · Garden Room · Korean Minimalist |
 
 ---
 
 ## Usage
 
-1. Copy this repo as the starting point for a new project.
-2. Run `/q` at the start of each session to load project context.
-3. Run `/skills-required` to check if the project needs additional skills.
-4. Use `/grill-me` before generating any planning or architecture document.
+1. Run `/q` at the start of each session to load project context.
+2. For resume work: start with `/resume-coach`.
+3. For room work: start with `/room-coach`.
+4. Individual skills can be invoked directly if you already know which one you need.
