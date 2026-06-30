@@ -2,9 +2,10 @@
 
 ## Purpose
 
-This repo holds two Claude Code skill pipelines:
+This repo holds three Claude Code skill pipelines:
 1. **Resume coaching** — from raw resume paste to mock interview
 2. **Room makeover** — from intent capture to visual output and shopping list
+3. **LinkedIn** — from writing posts to engagement analytics to profile optimization
 
 Skills are invoked with `/skill-name` inside Claude Code sessions.
 
@@ -31,6 +32,17 @@ misc-skills/
       interior-design/
       room-refresh/
       rental-refresh/
+      linkedin-coach/           ← linkedin pipeline entry point
+      linkedin-post-writer/
+      linkedin-content-planner/
+      linkedin-comment-drafter/
+      linkedin-reply-handler/
+      linkedin-engager-analytics/
+      linkedin-thread-monitor/
+      linkedin-hook-extractor/
+      linkedin-humanizer/
+      linkedin-profile-optimizer/
+      linkedin-employee-advocacy/
 ```
 
 ---
@@ -74,6 +86,29 @@ Style library: 12 named styles across Cosy & Warm / Bold & Editorial / Calm & Fe
 
 ---
 
+### LinkedIn Pipeline
+
+Entry point: `/linkedin-coach`
+
+```
+/linkedin-post-writer        draft a new post using 16 2026 hook formulas, goal-matched
+/linkedin-content-planner    7-day calendar → pillars, hooks, posting times, daily comment targets
+/linkedin-comment-drafter    top-level comment on any post URL → 1-3 variants, reaction pick
+/linkedin-reply-handler      reply to an existing comment thread from its URL
+/linkedin-engager-analytics  who liked/commented on a post → ICP-tiered roster + DM openers
+/linkedin-thread-monitor     which of your comments got author replies → hot/warm/cool/dormant
+/linkedin-hook-extractor     reverse-engineer a viral post → formula ID, template, audit
+/linkedin-humanizer          scrub AI tells from any draft; --mode audit for pass/fail review
+/linkedin-profile-optimizer  full profile audit + rewrite: headline, About, Featured, 6 more
+/linkedin-employee-advocacy  14-day team advocacy launch + governance + ROI tracking
+```
+
+`/linkedin-coach` routes based on what the user wants to do — write, plan, engage, analyse, audit, profile, or advocacy. Passes all collected context forward so the user never answers the same question twice.
+
+External integration: several skills use **Apify** to fetch LinkedIn post/comment data without a LinkedIn login. Manual URL-paste fallback available when no Apify token is set.
+
+---
+
 ## External Dependencies
 
 ### `/banana` (image generation)
@@ -99,6 +134,9 @@ No build step. Skills are plain Markdown files — no compilation required.
 # Room work
 /room-coach               # routing entry point
 
+# LinkedIn work
+/linkedin-coach           # routing entry point for all LinkedIn skills
+
 # Image generation (requires /banana installed and configured)
 /banana setup             # configure API key
 /banana generate "..."    # generate standalone image
@@ -110,5 +148,5 @@ No build step. Skills are plain Markdown files — no compilation required.
 
 - Each skill is a single `SKILL.md` file inside `.claude/skills/<skill-name>/`
 - Skills define: purpose, trigger conditions, required inputs, what to do, output format
-- Entry-point skills (`resume-coach`, `room-coach`) handle input collection and invoke downstream skills — users should only need to know the entry point
+- Entry-point skills (`resume-coach`, `room-coach`, `linkedin-coach`) handle input collection and invoke downstream skills — users should only need to know the entry point
 - PERSONA.md governs tone throughout all skills (Cantonese, 小喬 persona, 主公 address)
