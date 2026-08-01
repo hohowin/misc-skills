@@ -66,6 +66,21 @@ A structured audit + rewrite in this shape:
 - Featured section content: **30% longer viewing time**
 - Personal founder profile vs company page: **315% more engagement, 270% more conversions**
 
+## Recruiter visibility settings
+
+For job-seeking goal, check these beyond the 9 sections:
+
+- **Open to Work:** set target job titles, locations, start date, job types. Default to **"Recruiters only"** visibility (hides the public green badge) unless the user wants it public.
+- **Profile viewing:** "Show full profile" on, not the truncated public version.
+
+## Content cadence
+
+Posting activity is a 10th, unscored signal that compounds the other 9 — recent activity boosts search ranking and Featured/About views.
+
+- Minimum viable: 1x/week post, daily engagement (likes/comments on others' posts)
+- Optimal: 3-5x/week — route to `linkedin-content-planner` if the user needs a cadence plan
+- Stale profile (no activity in 30+ days) drags down an otherwise-optimized profile in search — flag this in the audit if seen
+
 ## Hard rules
 
 Global voice rules: see root `SKILL.md` §Voice rules. Additional skill-specific rules:
