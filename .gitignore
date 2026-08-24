@@ -1,2 +1,8 @@
 # Ignore knowledge base
 _knowledge/
+
+# Ignore personal/private documents
+private/
+
+# Ignore playwright generated files
+.playwright-mcp
