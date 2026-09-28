@@ -92,6 +92,16 @@ Start with `/linkedin-coach` — it asks one question at a time and routes autom
 
 ---
 
+## Standalone Skills
+
+| Skill | Invoke | Description |
+|-------|--------|-------------|
+| **cfo-canadian-tax-prep** | `/cfo-canadian-tax-prep` | Canadian tax prep review packets (T1/T4, rental T776, self-employed T2125, T2/GIFI, GST/HST, payroll). CRA pages are the source of truth; outputs are for human or CPA review, never a filing claim. Third-party skill from [mikechongcan/cfo-stack](https://github.com/mikechongcan/cfo-stack). |
+
+**UFile via Playwright MCP:** log in to UFile yourself in the Playwright browser (including 2FA). Claude fills sections from the slip numbers you provide and stops for your review after each one. You press Submit / NETFILE / pay yourself.
+
+---
+
 ## Utility
 
 | Skill | Invoke | Description |
@@ -135,4 +145,5 @@ If `/banana` is not configured, room skills output a copyable prompt instead.
 2. For resume work: start with `/resume-coach`.
 3. For room work: start with `/room-coach`.
 4. For LinkedIn work: start with `/linkedin-coach`.
-5. Individual skills can be invoked directly if you already know which one you need.
+5. For Canadian tax prep: use `/cfo-canadian-tax-prep`.
+6. Individual skills can be invoked directly if you already know which one you need.

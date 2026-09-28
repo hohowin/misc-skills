@@ -7,6 +7,8 @@ This repo holds three Claude Code skill pipelines:
 2. **Room makeover** — from intent capture to visual output and shopping list
 3. **LinkedIn** — from writing posts to engagement analytics to profile optimization
 
+Plus one standalone skill: **Canadian tax prep** (`cfo-canadian-tax-prep`, third-party).
+
 Skills are invoked with `/skill-name` inside Claude Code sessions.
 
 ---
@@ -43,6 +45,7 @@ misc-skills/
       linkedin-humanizer/
       linkedin-profile-optimizer/
       linkedin-employee-advocacy/
+      cfo-canadian-tax-prep/    ← standalone, third-party (has references/)
 ```
 
 ---
@@ -109,6 +112,18 @@ External integration: several skills use **Apify** to fetch LinkedIn post/commen
 
 ---
 
+### Standalone: Canadian Tax Prep
+
+Skill: `/cfo-canadian-tax-prep` — no entry-point router; invoke directly.
+
+- Builds tax review packets (T1/T4, T776, T2125, T2/GIFI, GST/HST, payroll). CRA pages are authoritative; outputs are for human/CPA review, never "ready to file".
+- Starts by classifying the filer (entity type, tax year, province) and stops to ask if unclear.
+- Designed for the CFO Stack beancount ledger (`jurisdiction.yaml` packs). Without a ledger, use its workflow and CRA source maps only.
+- Source: [mikechongcan/cfo-stack](https://github.com/mikechongcan/cfo-stack) (copy of `.agents/skills/cfo-canadian-tax-prep`). Also installed globally at `~/.agents/skills/`, symlinked into `~/.claude/skills/`.
+- UFile via **Playwright MCP**: user logs in and handles 2FA themselves; Claude fills sections from user-supplied slip numbers, pauses for review per section, and never submits, NETFILEs, or pays.
+
+---
+
 ## External Dependencies
 
 ### `/banana` (image generation)
@@ -137,6 +152,9 @@ No build step. Skills are plain Markdown files — no compilation required.
 # LinkedIn work
 /linkedin-coach           # routing entry point for all LinkedIn skills
 
+# Tax work
+/cfo-canadian-tax-prep    # Canadian tax prep review packets
+
 # Image generation (requires /banana installed and configured)
 /banana setup             # configure API key
 /banana generate "..."    # generate standalone image
@@ -146,7 +164,7 @@ No build step. Skills are plain Markdown files — no compilation required.
 
 ## Conventions
 
-- Each skill is a single `SKILL.md` file inside `.claude/skills/<skill-name>/`
+- Each skill is a single `SKILL.md` file inside `.claude/skills/<skill-name>/` (`cfo-canadian-tax-prep` also has a `references/` folder)
 - Skills define: purpose, trigger conditions, required inputs, what to do, output format
 - Entry-point skills (`resume-coach`, `room-coach`, `linkedin-coach`) handle input collection and invoke downstream skills — users should only need to know the entry point
 - PERSONA.md governs tone throughout all skills (Cantonese, 小喬 persona, 主公 address)
