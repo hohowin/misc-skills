@@ -7,7 +7,7 @@ This repo holds three Claude Code skill pipelines:
 2. **Room makeover** — from intent capture to visual output and shopping list
 3. **LinkedIn** — from writing posts to engagement analytics to profile optimization
 
-Plus one standalone skill: **Canadian tax prep** (`cfo-canadian-tax-prep`, third-party).
+Plus two standalone skills: **Canadian tax prep** (`cfo-canadian-tax-prep`, third-party) and **Claude computer use** (`claude-computer-use`, adapted from a third-party source).
 
 Skills are invoked with `/skill-name` inside Claude Code sessions.
 
@@ -46,6 +46,7 @@ misc-skills/
       linkedin-profile-optimizer/
       linkedin-employee-advocacy/
       cfo-canadian-tax-prep/    ← standalone, third-party (has references/)
+      claude-computer-use/      ← standalone, adapted from TerminalSkills/skills
 ```
 
 ---
@@ -121,6 +122,16 @@ Skill: `/cfo-canadian-tax-prep` — no entry-point router; invoke directly.
 - Designed for the CFO Stack beancount ledger (`jurisdiction.yaml` packs). Without a ledger, use its workflow and CRA source maps only.
 - Source: [mikechongcan/cfo-stack](https://github.com/mikechongcan/cfo-stack) (copy of `.agents/skills/cfo-canadian-tax-prep`). Also installed globally at `~/.agents/skills/`, symlinked into `~/.claude/skills/`.
 - UFile via **Playwright MCP**: user logs in and handles 2FA themselves; Claude fills sections from user-supplied slip numbers, pauses for review per section, and never submits, NETFILEs, or pays.
+
+---
+
+### Standalone: Claude Computer Use
+
+Skill: `/claude-computer-use` — no entry-point router; invoke directly.
+
+- GUI automation via Anthropic's `computer_toolset_20260801` (screenshots + mouse/keyboard control, no CSS selectors needed). Pairs with `bash_20250124` and `text_editor_20250728` for file/shell operations alongside the GUI.
+- Must run in a sandboxed Docker/VM environment — never on a machine with real account sessions or credentials.
+- Source: adapted from [TerminalSkills/skills](https://github.com/TerminalSkills/skills) `skills/claude-computer-use/SKILL.md`, migrated off the retired `computer_20241022` tool shape (see the skill's Overview section for what changed).
 
 ---
 
